@@ -1,25 +1,49 @@
-import {useState} from 'react';
-import logo from './assets/images/logo-universal.png';
-import './App.css';
-import {Greet} from "../wailsjs/go/main/App";
+import { useState } from 'react';
+import { GenerateTable } from '../wailsjs/go/main/App';
+import { Box } from '@mui/system';
+import { Button, ButtonBase, TextField } from '@mui/material';
+import styles from './App.module.css';
 
 function App() {
-    const [resultText, setResultText] = useState("Please enter your name below 👇");
-    const [name, setName] = useState('');
-    const updateName = (e: any) => setName(e.target.value);
-    const updateResultText = (result: string) => setResultText(result);
+    const [csvText, setCsvText] = useState('');
+    const [htmlText, setHtmlText] = useState('');
+    const generateHtml = () => {
+        GenerateTable(csvText).then((res) => setHtmlText(res));
+    }
 
-    function greet() {
-        Greet(name).then(updateResultText);
+    const generateCsv = () => {
+        //GenerateTable('');
     }
 
     return (
-        <div id="App">
-            <img src={logo} id="logo" alt="logo"/>
-            <div id="result" className="result">{resultText}</div>
-            <div id="input" className="input-box">
-                <input id="name" className="input" onChange={updateName} autoComplete="off" name="input" type="text"/>
-                <button className="btn" onClick={greet}>Greet</button>
+        <div className={styles.main}>
+            <div className={styles.csvArea}>
+                <TextField
+                    label='Multiline'
+                    multiline
+                    fullWidth
+                    value={csvText}
+                    onChange={
+                        (e) => setCsvText(e.target.value)
+                    }
+                />
+            </div>
+            <div className={styles.htmlArea}>
+                <TextField
+                    label='Multiline'
+                    multiline
+                    value={htmlText}
+                    fullWidth
+                    onChange={
+                        (e) => setHtmlText(e.target.value)
+                    }
+                />
+            </div>
+            <div className={styles.csvToHtmlButtonArea}>
+                <Button onClick={generateHtml}>→</Button>
+            </div>
+            <div className={styles.htmlToCsvButtonArea}>
+                <Button onClick={generateCsv}>←</Button>
             </div>
         </div>
     )

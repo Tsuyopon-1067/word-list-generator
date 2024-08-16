@@ -3,6 +3,8 @@ package main
 import (
 	"context"
 	"fmt"
+	"wordlist/html"
+	"wordlist/parsecsv"
 )
 
 // App struct
@@ -24,4 +26,12 @@ func (a *App) startup(ctx context.Context) {
 // Greet returns a greeting for the given name
 func (a *App) Greet(name string) string {
 	return fmt.Sprintf("Hello %s, It's show time!", name)
+}
+
+func (a *App) GenerateTable(csv string) string {
+	words, err := parsecsv.ParseCsv(csv)
+	if err != nil {
+		return err.Error()
+	}
+	return html.GenerateTableHtml(words)
 }
