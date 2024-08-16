@@ -1,4 +1,4 @@
-module wordmean
+module wordlist
 
 go 1.21
 
