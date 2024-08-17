@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"wordlist/html"
+	"wordlist/generator"
 	"wordlist/parse"
 )
 
@@ -33,5 +33,5 @@ func (a *App) GenerateTable(csv string) string {
 	if err != nil {
 		return err.Error()
 	}
-	return html.GenerateTableHtml(words)
+	return generator.GenerateTableHtml(words)
 }

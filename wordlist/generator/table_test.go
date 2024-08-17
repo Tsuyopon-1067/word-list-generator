@@ -1,14 +1,14 @@
-package html
+package generator
 
 import (
 	"github.com/stretchr/testify/assert"
 	"strings"
 	"testing"
-	"wordlist/parsecsv"
+	"wordlist/parse"
 )
 
 func TestParseCsvOk(t *testing.T) {
-	data := []parsecsv.Word{
+	data := []parse.Word{
 		{Position: "p10 10%", Name: "available", Mean: "使える"},
 		{Position: "p20 30%", Name: "currently", Mean: "現在は"},
 		{Position: "p30 50%", Name: "annual", Mean: "毎年恒例の"},
