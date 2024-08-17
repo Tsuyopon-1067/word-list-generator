@@ -61,6 +61,10 @@ function App() {
       <div className={styles.titleArea}>
         <FolderSelector />
         <span style={{ color: "black" }}> filename: {fileName}</span>
+        <Button>csv保存</Button>
+        <Button>html保存</Button>
+        <Button>csvコピー</Button>
+        <Button>htmlコピー</Button>
       </div>
       <div className={styles.contentArea}>
         <div className={styles.csvArea}>
