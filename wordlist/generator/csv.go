@@ -7,13 +7,15 @@ import (
 
 func GenerateCsvText(words []parse.Word) string {
 	var builder strings.Builder
-	for _, line := range words {
+	for i, line := range words {
 		builder.WriteString(line.Position)
 		builder.WriteString(",")
 		builder.WriteString(line.Name)
 		builder.WriteString(",")
 		builder.WriteString(line.Meaning)
-		builder.WriteString("\n")
+		if i < len(words)-1 {
+			builder.WriteString("\n")
+		}
 	}
 	return builder.String()
 }
