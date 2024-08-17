@@ -35,3 +35,11 @@ func (a *App) GenerateTable(csv string) string {
 	}
 	return generator.GenerateTableHtml(words)
 }
+
+func (a *App) GenerateCsv(html string) string {
+	words, err := parse.ParseHtml(html)
+	if err != nil {
+		return err.Error()
+	}
+	return generator.GenerateCsvText(words)
+}
