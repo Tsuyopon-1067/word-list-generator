@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { GenerateTable, GenerateCsv } from "../wailsjs/go/main/App";
+import { GenerateTable, GenerateCsv, Save, Open } from "../wailsjs/go/main/App";
 import { Button, TextField } from "@mui/material";
 import styles from "./App.module.css";
 
@@ -14,6 +14,14 @@ function App() {
   const generateCsv = () => {
     GenerateCsv(htmlText).then((res) => setCsvText(res));
   };
+
+  const saveFile = (content: string, ext: string) => {
+    Save(content, ext);
+  }
+
+  const openFile = (ext: string, setState: (s: string) => void) => {
+    Open(ext).then((res) => setState(res));
+  }
 
   // ファイル読み込みボタン
   const FolderSelector = () => {
@@ -61,8 +69,21 @@ function App() {
       <div className={styles.titleArea}>
         <FolderSelector />
         <span style={{ color: "black" }}> filename: {fileName}</span>
-        <Button>csv保存</Button>
-        <Button>html保存</Button>
+
+        <Button onClick={() => {
+          saveFile(csvText, 'csv')
+        }}>csv保存</Button>
+        <Button onClick={() => {
+          saveFile(csvText, 'html')
+        }}>html保存</Button>
+
+        <Button onClick={() => {
+          openFile('csv', setCsvText)
+        }}>csv開く</Button>
+        <Button onClick={() => {
+          openFile('html', setHtmlText)
+        }}>html開く</Button>
+
         <Button>csvコピー</Button>
         <Button>htmlコピー</Button>
       </div>
