@@ -18,9 +18,9 @@ func ParseCsv(csv string) ([]Word, error) {
 			return nil, err
 		}
 		res[i] = Word{
-			Position: tmp[0],
-			Name:     tmp[1],
-			Mean:     tmp[2],
+			Position: strings.TrimSpace(tmp[0]),
+			Name:     strings.TrimSpace(tmp[1]),
+			Mean:     strings.TrimSpace(tmp[2]),
 		}
 	}
 	return res, nil

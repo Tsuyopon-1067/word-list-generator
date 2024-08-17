@@ -1,6 +1,9 @@
 package parse
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func TestParseCsvOk(t *testing.T) {
 	data := `p10 10%, available, 使える
@@ -22,11 +25,12 @@ func TestParseCsvOk(t *testing.T) {
 	for i := range actual {
 		if actual[i] != expected[i] {
 			isOk = false
+			fmt.Printf("i=%d, actual: %v\nexpected: %v\n", i, actual[i], expected[i])
 			break
 		}
 	}
 
-	if isOk {
+	if !isOk {
 		t.Errorf("actual: %v\nexpected: %v", actual, expected)
 	}
 }
