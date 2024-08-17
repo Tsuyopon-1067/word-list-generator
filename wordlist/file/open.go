@@ -8,7 +8,7 @@ import (
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
-func Open(ctx context.Context, ext string) string {
+func Open(ctx context.Context, ext string) (string, string) {
 	filter := []runtime.FileFilter{
 		{
 			DisplayName: ext + " files (*." + ext + ")",
@@ -29,11 +29,11 @@ func Open(ctx context.Context, ext string) string {
 
 	selectedFiles, err := runtime.OpenMultipleFilesDialog(ctx, dialogOptions)
 	if len(selectedFiles) == 0 {
-		return ""
+		return "", ""
 	}
 	if err != nil {
 		fmt.Println(err)
-		return ""
+		return "", ""
 	}
 
 	selectedFile := selectedFiles[0]
@@ -42,5 +42,5 @@ func Open(ctx context.Context, ext string) string {
 		panic(err)
 	}
 
-	return string(bytes)
+	return string(bytes), selectedFile
 }

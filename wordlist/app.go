@@ -45,10 +45,15 @@ func (a *App) GenerateCsv(html string) string {
 	return generator.GenerateCsvText(words)
 }
 
-func (a *App) Save(content string, ext string) {
-	file.Save(a.ctx, content, ext)
+func (a *App) Save(content string, ext string) string {
+	return file.Save(a.ctx, content, ext)
 }
 
-func (a *App) Open(ext string) string {
-	return file.Open(a.ctx, ext)
+func (a *App) SaveAs(content string, path string) {
+	file.SaveAs(a.ctx, content, path)
+}
+
+func (a *App) Open(ext string) []string {
+	content, filepath := file.Open(a.ctx, ext)
+	return []string{content, filepath}
 }
