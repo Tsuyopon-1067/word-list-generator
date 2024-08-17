@@ -1,8 +1,8 @@
 package html
 
-import "wordlist/parsecsv"
+import "wordlist/parse"
 
-func GenerateTableHtml(words []parsecsv.Word) string {
+func GenerateTableHtml(words []parse.Word) string {
 	res := generateHead()
 	res += "<body>"
 	res += generateTableBody(words)
@@ -77,7 +77,7 @@ func generateHead() string {
 </head>`
 }
 
-func generateTableBody(words []parsecsv.Word) string {
+func generateTableBody(words []parse.Word) string {
 	res := `<table>
 	<tr>
 	<th>position</th>

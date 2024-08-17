@@ -1,4 +1,4 @@
-package parsecsv
+package parse
 
 import (
 	"errors"

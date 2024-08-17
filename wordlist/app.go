@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"wordlist/html"
-	"wordlist/parsecsv"
+	"wordlist/parse"
 )
 
 // App struct
@@ -29,7 +29,7 @@ func (a *App) Greet(name string) string {
 }
 
 func (a *App) GenerateTable(csv string) string {
-	words, err := parsecsv.ParseCsv(csv)
+	words, err := parse.ParseCsv(csv)
 	if err != nil {
 		return err.Error()
 	}
