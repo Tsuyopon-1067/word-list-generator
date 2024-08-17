@@ -12,7 +12,7 @@ func GenerateCsvText(words []parse.Word) string {
 		builder.WriteString(",")
 		builder.WriteString(line.Name)
 		builder.WriteString(",")
-		builder.WriteString(line.Mean)
+		builder.WriteString(line.Meaning)
 		builder.WriteString("\n")
 	}
 	return builder.String()

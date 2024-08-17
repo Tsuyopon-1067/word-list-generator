@@ -101,9 +101,9 @@ func TestParseHtmlOk(t *testing.T) {
 		return
 	}
 	expected := []Word{
-		{Position: "p10 10%", Name: "available", Mean: "使える"},
-		{Position: "p20 30%", Name: "currently", Mean: "現在は"},
-		{Position: "p30 50%", Name: "annual", Mean: "毎年恒例の"},
+		{Position: "p10 10%", Name: "available", Meaning: "使える"},
+		{Position: "p20 30%", Name: "currently", Meaning: "現在は"},
+		{Position: "p30 50%", Name: "annual", Meaning: "毎年恒例の"},
 	}
 
 	isOk := true
