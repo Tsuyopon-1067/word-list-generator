@@ -61,8 +61,6 @@ function App() {
       <div className={styles.titleArea}>
         <FolderSelector />
         <span style={{ color: "black" }}> filename: {fileName}</span>
-        <Button variant="contained">prev history</Button>
-        <Button variant="contained">next history</Button>
       </div>
       <div className={styles.contentArea}>
         <div className={styles.csvArea}>
