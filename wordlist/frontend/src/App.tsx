@@ -1,52 +1,99 @@
-import { useState } from 'react';
-import { GenerateTable } from '../wailsjs/go/main/App';
-import { Box } from '@mui/system';
-import { Button, ButtonBase, TextField } from '@mui/material';
-import styles from './App.module.css';
+import { useState } from "react";
+import { GenerateTable } from "../wailsjs/go/main/App";
+import { Button, TextField } from "@mui/material";
+import styles from "./App.module.css";
 
 function App() {
-    const [csvText, setCsvText] = useState('');
-    const [htmlText, setHtmlText] = useState('');
-    const generateHtml = () => {
-        GenerateTable(csvText).then((res) => setHtmlText(res));
-    }
+  const [csvText, setCsvText] = useState("");
+  const [htmlText, setHtmlText] = useState("");
+  const [fileName, setFileName] = useState("");
+  const generateHtml = () => {
+    GenerateTable(csvText).then((res) => setHtmlText(res));
+  };
 
-    const generateCsv = () => {
-        //GenerateTable('');
-    }
+  const generateCsv = () => {
+    //GenerateTable('');
+  };
+
+  // ファイル読み込みボタン
+  const FolderSelector = () => {
+    const handleFolderSelect = (event: any) => {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (reader.result) {
+          const filename = file.name;
+          const ext = filename.split('.').pop();
+          const content = reader.result?.toString()
+          setFileName(filename);
+          if (ext == 'csv') {
+            setCsvText(content)
+          } else if (ext == 'html') {
+            setHtmlText(content)
+          } else {
+            // TODO: トーストを出す
+          }
+        }
+      }
+      reader.readAsText(file);
+    };
 
     return (
-        <div className={styles.main}>
-            <div className={styles.csvArea}>
-                <TextField
-                    label='Multiline'
-                    multiline
-                    fullWidth
-                    value={csvText}
-                    onChange={
-                        (e) => setCsvText(e.target.value)
-                    }
-                />
-            </div>
-            <div className={styles.htmlArea}>
-                <TextField
-                    label='Multiline'
-                    multiline
-                    value={htmlText}
-                    fullWidth
-                    onChange={
-                        (e) => setHtmlText(e.target.value)
-                    }
-                />
-            </div>
-            <div className={styles.csvToHtmlButtonArea}>
-                <Button onClick={generateHtml}>→</Button>
-            </div>
-            <div className={styles.htmlToCsvButtonArea}>
-                <Button onClick={generateCsv}>←</Button>
-            </div>
+      <span>
+        <input
+          type="file"
+          style={{ display: "none" }}
+          onChange={handleFolderSelect}
+          id="folder-input"
+          accept='.csv, .html'
+        />
+        <label htmlFor="folder-input">
+          <Button variant="contained" component="span">
+            フォルダを選択
+          </Button>
+        </label>
+      </span>
+    );
+  };
+
+  return (
+    <div className={styles.main}>
+      <div className={styles.titleArea}>
+        <FolderSelector />
+        <span style={{ color: "black" }}> filename: {fileName}</span>
+      </div>
+      <div className={styles.contentArea}>
+        <div className={styles.csvArea}>
+          <TextField
+            label="Multiline"
+            multiline
+            fullWidth
+            value={csvText}
+            onChange={(e) => setCsvText(e.target.value)}
+          />
         </div>
-    )
+        <div className={styles.htmlArea}>
+          <TextField
+            label="Multiline"
+            multiline
+            value={htmlText}
+            fullWidth
+            onChange={(e) => setHtmlText(e.target.value)}
+          />
+        </div>
+        <div className={styles.csvToHtmlButtonArea}>
+          <Button onClick={generateHtml} variant="contained">
+            →
+          </Button>
+        </div>
+        <div className={styles.htmlToCsvButtonArea}>
+          <Button onClick={generateCsv} variant="contained">
+            ←
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
