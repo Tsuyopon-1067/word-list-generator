@@ -6,12 +6,6 @@ import (
 	"strings"
 )
 
-type Word struct {
-	Name     string `json:"name"`
-	Position string `json:"position"`
-	Mean     string `json:"mean"`
-}
-
 func ParseCsv(csv string) ([]Word, error) {
 	fmt.Printf("csv: %v\n", csv)
 	lines := strings.Split(csv, "\n")
