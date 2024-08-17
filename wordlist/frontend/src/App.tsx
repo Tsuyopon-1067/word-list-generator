@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { GenerateTable } from "../wailsjs/go/main/App";
+import { GenerateTable, GenerateCsv } from "../wailsjs/go/main/App";
 import { Button, TextField } from "@mui/material";
 import styles from "./App.module.css";
 
@@ -12,7 +12,7 @@ function App() {
   };
 
   const generateCsv = () => {
-    //GenerateTable('');
+    GenerateCsv(htmlText).then((res) => setCsvText(res));
   };
 
   // ファイル読み込みボタン
