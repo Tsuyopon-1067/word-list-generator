@@ -1,16 +1,10 @@
-package parsecsv
+package parse
 
 import (
 	"errors"
 	"fmt"
 	"strings"
 )
-
-type Word struct {
-	Name     string `json:"name"`
-	Position string `json:"position"`
-	Mean     string `json:"mean"`
-}
 
 func ParseCsv(csv string) ([]Word, error) {
 	fmt.Printf("csv: %v\n", csv)
@@ -24,9 +18,9 @@ func ParseCsv(csv string) ([]Word, error) {
 			return nil, err
 		}
 		res[i] = Word{
-			Position: tmp[0],
-			Name:     tmp[1],
-			Mean:     tmp[2],
+			Position: strings.TrimSpace(tmp[0]),
+			Name:     strings.TrimSpace(tmp[1]),
+			Mean:     strings.TrimSpace(tmp[2]),
 		}
 	}
 	return res, nil

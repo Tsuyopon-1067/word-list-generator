@@ -5,11 +5,13 @@ go 1.21
 toolchain go1.22.6
 
 require (
+	github.com/PuerkitoBio/goquery v1.5.1
 	github.com/stretchr/testify v1.8.1
 	github.com/wailsapp/wails/v2 v2.7.1
 )
 
 require (
+	github.com/andybalholm/cascadia v1.2.0 // indirect
 	github.com/bep/debounce v1.2.1 // indirect
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
