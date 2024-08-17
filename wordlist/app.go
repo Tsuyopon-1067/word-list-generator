@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"wordlist/file"
 	"wordlist/generator"
 	"wordlist/parse"
 )
@@ -42,4 +43,17 @@ func (a *App) GenerateCsv(html string) string {
 		return err.Error()
 	}
 	return generator.GenerateCsvText(words)
+}
+
+func (a *App) Save(content string, ext string) string {
+	return file.Save(a.ctx, content, ext)
+}
+
+func (a *App) SaveAs(content string, path string) {
+	file.SaveAs(a.ctx, content, path)
+}
+
+func (a *App) Open(ext string) []string {
+	content, filepath := file.Open(a.ctx, ext)
+	return []string{content, filepath}
 }

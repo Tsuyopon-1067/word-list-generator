@@ -6,3 +6,9 @@ export function GenerateCsv(arg1:string):Promise<string>;
 export function GenerateTable(arg1:string):Promise<string>;
 
 export function Greet(arg1:string):Promise<string>;
+
+export function Open(arg1:string):Promise<Array<string>>;
+
+export function Save(arg1:string,arg2:string):Promise<string>;
+
+export function SaveAs(arg1:string,arg2:string):Promise<void>;
