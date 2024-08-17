@@ -88,7 +88,7 @@ func generateTableBody(words []parse.Word) string {
 		res += "<tr>"
 		res += "<td>" + word.Position + "</td>"
 		res += "<td>" + word.Name + "</td>"
-		res += "<td>" + word.Mean + "</td>"
+		res += "<td>" + word.Meaning + "</td>"
 		res += "</tr>"
 	}
 	res += "</table>"

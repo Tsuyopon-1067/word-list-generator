@@ -25,7 +25,7 @@ func ParseHtml(html string) ([]Word, error) {
 		info := Word{
 			Position: strings.TrimSpace(s.Find("td:nth-child(1)").Text()),
 			Name:     strings.TrimSpace(s.Find("td:nth-child(2)").Text()),
-			Mean:     strings.TrimSpace(s.Find("td:nth-child(3)").Text()),
+			Meaning:  strings.TrimSpace(s.Find("td:nth-child(3)").Text()),
 		}
 		res = append(res, info)
 	})

@@ -20,7 +20,7 @@ func ParseCsv(csv string) ([]Word, error) {
 		res[i] = Word{
 			Position: strings.TrimSpace(tmp[0]),
 			Name:     strings.TrimSpace(tmp[1]),
-			Mean:     strings.TrimSpace(tmp[2]),
+			Meaning:  strings.TrimSpace(tmp[2]),
 		}
 	}
 	return res, nil
