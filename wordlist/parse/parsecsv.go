@@ -4,20 +4,43 @@ import (
 	"errors"
 	"fmt"
 	"strings"
+	"sync"
 	"wordlist/scraping"
 )
+
+type goroutineResult struct {
+	index int
+	word  Word
+	err   error
+}
 
 func ParseCsv(csv string) ([]Word, error) {
 	csv = deleteBlankLIne(csv)
 	lines := strings.Split(csv, "\n")
 
-	res := make([]Word, len(lines))
+	size := len(lines)
+	ch := make(chan goroutineResult, size)
+	var wg sync.WaitGroup
+	wg.Add(size)
+
 	for i, line := range lines {
-		word, err := createWord(line)
-		if err != nil {
-			return nil, err
+		go func(index int, line string, ch chan goroutineResult, wg *sync.WaitGroup) {
+			defer wg.Done()
+			word, err := createWord(line)
+			ch <- goroutineResult{index, word, err}
+		}(i, line, ch, &wg)
+	}
+	go func() {
+		wg.Wait()
+		close(ch)
+	}()
+
+	res := make([]Word, size)
+	for v := range ch {
+		if v.err != nil {
+			return nil, v.err
 		}
-		res[i] = word
+		res[v.index] = v.word
 	}
 	return res, nil
 }
