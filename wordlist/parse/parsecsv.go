@@ -44,6 +44,9 @@ func createWord(line string) (Word, error) {
 	if len(splited) == 2 || strings.TrimSpace(meaning) == "" {
 		meaning = scraping.FetchWordMeaning(name)
 		meaning = strings.TrimSpace(meaning)
+		if meaning == "" {
+			meaning = "none"
+		}
 	}
 
 	return Word{
