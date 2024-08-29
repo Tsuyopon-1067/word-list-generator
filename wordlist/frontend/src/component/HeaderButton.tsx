@@ -2,6 +2,7 @@ import { useState } from "react";
 import React from "react";
 import { Save, Open, SaveAs } from "../../wailsjs/go/main/App";
 import { Button } from "@mui/material";
+import styles from "./HeaderButton.module.css";
 
 type HeaderButtonProps = {
   csvText: string;
@@ -43,27 +44,29 @@ export const HeaderButton: React.FC<HeaderButtonProps> = ({ csvText, htmlText, s
   };
 
   return (
-    <div>
-      <Button onClick={() => saveCsv()} variant="contained">
-        csv保存
-      </Button>
-      <Button onClick={() => saveHtml()} variant="contained">
-        html保存
-      </Button>
-
-      <Button onClick={() => resave(csvText, csvFilePath)} variant="contained">
-        csv上書き保存
-      </Button>
-      <Button onClick={() => resave(htmlText, htmlFilePath)} variant="contained">
-        html上書き保存
-      </Button>
-
-      <Button onClick={() => openCsv()} variant="contained">
-        csv開く
-      </Button>
-      <Button onClick={() => openHtml()} variant="contained">
-        html開く
-      </Button>
+    <div className={styles.header}>
+      <div className={styles.header__button}>
+        <Button onClick={() => saveCsv()} variant="contained">
+          csv保存
+        </Button>
+        <Button onClick={() => resave(csvText, csvFilePath)} variant="contained">
+          csv上書き保存
+        </Button>
+        <Button onClick={() => openCsv()} variant="contained">
+          csv開く
+        </Button>
+      </div>
+      <div className={styles.header__button}>
+        <Button onClick={() => saveHtml()} variant="contained">
+          html保存
+        </Button>
+        <Button onClick={() => resave(htmlText, htmlFilePath)} variant="contained">
+          html上書き保存
+        </Button>
+        <Button onClick={() => openHtml()} variant="contained">
+          html開く
+        </Button>
+      </div>
     </div>
   );
 };
