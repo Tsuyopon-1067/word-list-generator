@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { GenerateTable, GenerateCsv, Save, Open, SaveAs } from "../wailsjs/go/main/App";
-import { Button, TextField } from "@mui/material";
+import { GenerateTable, GenerateCsv } from "../wailsjs/go/main/App";
+import { Button, IconButton, TextField, Tooltip } from "@mui/material";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import styles from "./App.module.css";
+import { HeaderButton } from "./component/HeaderButton";
 
 function App() {
   const [csvText, setCsvText] = useState("");
   const [htmlText, setHtmlText] = useState("");
-  const [csvFilePath, setCsvFilePath] = useState("");
-  const [htmlFilePath, setHtmlFilePath] = useState("");
+  const [tooltipTitle, setTooltipTitle] = useState("Copy to Clipboard");
+
   const generateHtml = () => {
     GenerateTable(csvText).then((res) => setHtmlText(res));
   };
@@ -16,104 +18,31 @@ function App() {
     GenerateCsv(htmlText).then((res) => setCsvText(res));
   };
 
-  const saveCsv = () => {
-    Save(csvText, 'csv').then((res) => setCsvFilePath(res));
-  }
-
-  const saveHtml = () => {
-    Save(htmlText, 'html').then((res) => setHtmlFilePath(res));
-  }
-
-  const openCsv = () => {
-    Open('csv')
-      .then((res) => {
-        setCsvText(res[0]);
-        setCsvFilePath(res[1]);
-      });
-  }
-  const openHtml = () => {
-    Open('html')
-      .then((res) => {
-        setHtmlText(res[0]);
-        setHtmlFilePath(res[1]);
-      });
-  }
-
-
-  const resave = (content: string, path: string) => {
-    if (path === "") {
-      return;
-    }
-    SaveAs(content, path);
-  }
+  const copyToClipboard = async (text: string) => {
+    await navigator.clipboard.writeText(text);
+    setTooltipTitle("Copied!");
+  };
 
   return (
     <div className={styles.main}>
-      <div className={styles.titleArea}>
-        <Button
-          onClick={() => saveCsv()}
-          variant="contained"
-        >
-          csv保存
-        </Button>
-        <Button
-          onClick={() => saveHtml()}
-          variant="contained"
-        >
-          html保存
-        </Button>
-
-        <Button
-          onClick={() => resave(csvText, csvFilePath)}
-          variant="contained"
-        >
-          csv上書き保存
-        </Button>
-        <Button
-          onClick={() => resave(htmlText, htmlFilePath)}
-          variant="contained"
-        >
-          html上書き保存
-        </Button>
-
-        <Button
-          onClick={() => openCsv()}
-          variant="contained"
-        >
-          csv開く
-        </Button>
-        <Button
-          onClick={() => openHtml()}
-          variant="contained"
-        >
-          html開く
-        </Button>
-
-        <Button variant="contained">
-          csvコピー
-        </Button>
-        <Button variant="contained">
-          htmlコピー
-        </Button>
-      </div>
+      <HeaderButton csvText={csvText} setCsvText={setCsvText} htmlText={htmlText} setHtmlText={setHtmlText} />
       <div className={styles.contentArea}>
         <div className={styles.csvArea}>
-          <TextField
-            label="Multiline"
-            multiline
-            fullWidth
-            value={csvText}
-            onChange={(e) => setCsvText(e.target.value)}
-          />
+          <Tooltip title={tooltipTitle} placement="top" arrow>
+            <IconButton color="primary" size="small" onClick={() => copyToClipboard(csvText)} onMouseLeave={() => setTooltipTitle("Copy to Clipboard")}>
+              <ContentCopyIcon />
+            </IconButton>
+          </Tooltip>
+          <TextField label="csv" multiline fullWidth value={csvText} onChange={(e) => setCsvText(e.target.value)} />
         </div>
         <div className={styles.htmlArea}>
-          <TextField
-            label="Multiline"
-            multiline
-            value={htmlText}
-            fullWidth
-            onChange={(e) => setHtmlText(e.target.value)}
-          />
+          <Tooltip title={tooltipTitle} placement="top" arrow>
+            <IconButton color="primary" size="small" onClick={() => copyToClipboard(htmlText)} onMouseLeave={() => setTooltipTitle("Copy to Clipboard")}>
+              <ContentCopyIcon />
+            </IconButton>
+          </Tooltip>
+
+          <TextField label="html" multiline value={htmlText} fullWidth onChange={(e) => setHtmlText(e.target.value)} />
         </div>
         <div className={styles.csvToHtmlButtonArea}>
           <Button onClick={generateHtml} variant="contained">
