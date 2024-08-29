@@ -36,9 +36,16 @@ export const HeaderButton: React.FC<HeaderButtonProps> = ({ csvText, htmlText, s
     });
   };
 
-  const resave = (content: string, path: string) => {
+  const resave = (content: string, path: string, type: string) => {
     if (path === "") {
-      return;
+      switch (type) {
+        case "csv":
+          saveCsv();
+          return;
+        case "html":
+          saveHtml();
+          return;
+      }
     }
     SaveAs(content, path);
   };
@@ -49,7 +56,7 @@ export const HeaderButton: React.FC<HeaderButtonProps> = ({ csvText, htmlText, s
         <Button onClick={() => saveCsv()} variant="contained">
           csv保存
         </Button>
-        <Button onClick={() => resave(csvText, csvFilePath)} variant="contained">
+        <Button onClick={() => resave(csvText, csvFilePath, "csv")} variant="contained">
           csv上書き保存
         </Button>
         <Button onClick={() => openCsv()} variant="contained">
@@ -60,7 +67,7 @@ export const HeaderButton: React.FC<HeaderButtonProps> = ({ csvText, htmlText, s
         <Button onClick={() => saveHtml()} variant="contained">
           html保存
         </Button>
-        <Button onClick={() => resave(htmlText, htmlFilePath)} variant="contained">
+        <Button onClick={() => resave(htmlText, htmlFilePath, "html")} variant="contained">
           html上書き保存
         </Button>
         <Button onClick={() => openHtml()} variant="contained">
