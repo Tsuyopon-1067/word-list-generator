@@ -11,7 +11,7 @@ type HeaderButtonProps = {
   setHtmlText: (text: string) => void;
 };
 
-export const HeaderButton: React.FC<HeaderButtonProps> = ({ csvText, htmlText, setCsvText, setHtmlText }) => {
+export const HeaderButton = ({ csvText, htmlText, setCsvText, setHtmlText }: HeaderButtonProps) => {
   const [csvFilePath, setCsvFilePath] = useState("");
   const [htmlFilePath, setHtmlFilePath] = useState("");
 
