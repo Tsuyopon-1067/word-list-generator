@@ -64,9 +64,6 @@ export const HeaderButton: React.FC<HeaderButtonProps> = ({ csvText, htmlText, s
       <Button onClick={() => openHtml()} variant="contained">
         html開く
       </Button>
-
-      <Button variant="contained">csvコピー</Button>
-      <Button variant="contained">htmlコピー</Button>
     </div>
   );
 };
